@@ -5,12 +5,13 @@ let ground = document.getElementById("ground");
 let announceText = document.getElementById("announceText");
 let colorBlock = document.getElementById("colorBlock");
 
+let tiles = document.getElementById("playground");
+
 main_screen.style.display = "block";
 isntructions.style.display = "none";
 leaders.style.display = "none"
 ground.style.display = "none"
 
-let level = 0;
 let game = false;
 
 let loss = false;
@@ -28,8 +29,6 @@ document.addEventListener("click", function (e) {
         loadGame();
     } else if (targetElement.id === "return") {
         returnToMenu();
-    } else if (targetElement.id === "colorBlock") {
-        startGame();
     }
 })
 
@@ -58,35 +57,38 @@ function loadGame() {
     ground.style.display = "block"
 
     if (!game) {
-        level = 1;
         let index = Math.floor(Math.random() * 10);
         if (index === 0) {
             index = 1;
         }
         let start_color = primaryColors[index - 1];
-        announceText.innerText = "Hover over the Square to start the game";
+        announceText.innerText = "Click to start the game";
         colorBlock.style.backgroundColor = start_color;
-    } else {
-        level += 1;
-        startGame();
+        colorBlock.onclick = function () {
+            startGame();
+            game = true;
+        }
     }
 }
 
 function startGame() {
+    colorBlock.onclick = "";
     announceText.innerText = "The Color is:";
-    let index = Math.floor(Math.random() * 10);
-    if (index === 0) {
-        index = 1;
+    if (!loss) {
+        for (let i = 0; i < 4; i++) {
+            let tile = document.createElement("div");
+            tile.className = "tile";
+            tile.id = i;
+            let randomColor = primaryColors[Math.floor(Math.random() * 9)];
+            tile.setAttribute("color", randomColor);
+            tile.style.backgroundColor = randomColor;
+            tiles.appendChild(tile);
+        }
     }
-    let color = primaryColors[index - 1];
-    colorBlock.style.backgroundColor = color;
 }
 
 // loadd starter game
 // when click over square: set level & dificulty
 // update game, load squares, select random colors, apply them and squares and stuff
 // set timeout, check if mouse is hovering over correct square
-// if hover, proceed increase level and difficulty
-// number of squares and number of colors increase with level and difficulty according to a chart
-
 // if not hover then end game 
