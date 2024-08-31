@@ -174,3 +174,62 @@ body {
     left: 50%;
     transform: translate(-50%, 200px);
 }
+
+.losing-screen {
+    position: absolute;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.lose-title {
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px;
+}
+
+.score {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    font-size: 28px;
+}
+
+.lead {
+    margin: 10px;
+    font-size: 28px;
+}
+
+.lead input {
+    font-size: 28px;
+    border: none;
+    outline: none;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    text-align: end;
+    width: 200px;
+}
+
+.alert {
+    font-size: 24px;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    color: red;
+}
+
+.person {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    margin: auto;
+}
+
+.leaderboard-name, .leaderboard-score {
+    font-size: 24px;
+}

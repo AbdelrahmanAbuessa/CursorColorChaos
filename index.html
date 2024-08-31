@@ -28,10 +28,7 @@
                 You will be given a random color.
             </div>
             <div class="point">
-                You need to hover over a block with the corresponding color to not be eliminated.
-            </div>
-            <div class="point">
-                The game gets harder as you progress through the levels.
+                You need to click a block with the corresponding color to not be eliminated.
             </div>
             <div class="point">
                 Last player standing, WINS.
@@ -41,19 +38,8 @@
         
         <div class="leaderboard" id="leaderboard">
             <div class="instructions-title">Leaderboard</div>
-            <div class="leadlist">
-                <div class="person">
-                    <div class="name" id="name">UserName</div>
-                    <div class="score" id="score">UserName</div>
-                </div>
-                <div class="person">
-                    <div class="name" id="name">UserName</div>
-                    <div class="score" id="score">UserName</div>
-                </div>
-                <div class="person">
-                    <div class="name" id="name">UserName</div>
-                    <div class="score" id="score">UserName</div>
-                </div>
+            <div class="leadlist" id="leaderboard-list">
+                
             </div>
             <div btn="" id="return">Back to Menu</div>
         </div>
@@ -69,6 +55,20 @@
             <div id="playground" class="playground">
 
             </div>
+        </div>
+
+        <div class="losing-screen" id="losing">
+            <div class="lose-title">FAR OUT!</div>
+            <div class="score" id="final-score">
+                <div class="text">YOUR SCORE IS:</div>
+                <div class="number" id="number">0</div>
+            </div>
+            <div class="lead" id="lead-name">
+                <label for="leadName">ENTER YOUR NAME:</label>
+                <input type="text" name="leadName" id="leadName">
+            </div>
+            <div btn="" id="submitLead" class="submit">SUBMIT SCORE</div>
+            <div id="alert" class="alert">PLEASE FILL YOUR NAME</div>
         </div>
 
         <script src="script.js"></script>

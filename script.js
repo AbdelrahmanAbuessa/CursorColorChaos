@@ -4,64 +4,91 @@ let leaders = document.getElementById("leaderboard");
 let ground = document.getElementById("ground");
 let announceText = document.getElementById("announceText");
 let colorBlock = document.getElementById("colorBlock");
-
+let loseScr = document.getElementById("losing");
 let tiles = document.getElementById("playground");
-
 let timer_element = document.getElementById("timer");
-
+let leadName = document.getElementById("leadName");
+let leadScore = document.getElementById("number");
+let alertmsg = document.getElementById("alert");
 let interval;
+
+let leadList = document.getElementById("leaderboard-list");
 
 main_screen.style.display = "block";
 isntructions.style.display = "none";
 leaders.style.display = "none"
 ground.style.display = "none"
+loseScr.style.display = "none"
+alertmsg.style.display = "none"
 
 let game = false;
-
 let round = 0;
-
+let score = 0;
 let timer = 4;
-
 let primaryColors = ["red", "blue", "black", "white", "green", "purple", "red", "yellow", "cyan", "darkblue", "lightblue", "lightgray", "gray", "darkgray", "darkred", "darkgreen", "lightgreen"];
+
+let leaderboard = [];
+
+if (localStorage.getItem("lead")) {
+    leaderboard = JSON.parse(localStorage.getItem("lead"));
+    leaderboard.forEach(leader => {
+        let cellData = document.createElement("div");
+        cellData.className = "person";
+        cellData.innerHTML = `
+            <div class="leaderboard-name" id="leaderboard-name">${leader.lead}</div>
+            <div class="leaderboard-score" id="leaderboard-score">${leader.score}</div>
+        `;
+        leadList.appendChild(cellData);
+    });
+}
+
+let name;
+let recordedScore;
 
 document.addEventListener("click", function (e) {
     let targetElement = e.target;
     if (targetElement.id === "how") {
         howToPlay();
     } else if (targetElement.id === "lead") {
-        leaderboard();
+        showlead();
     } else if (targetElement.id === "start") {
         loadGame();
     } else if (targetElement.id === "return") {
         returnToMenu();
+    } else if (targetElement.id === "submitLead") {
+        submitLead();
     }
 })
 
-function leaderboard() {
+function showlead() {
     leaders.style.display = "block"
     main_screen.style.display = "none";
     isntructions.style.display = "none";
+    loseScr.style.display = "none"
 }
 
 function howToPlay() {
     leaders.style.display = "none"
+    loseScr.style.display = "none"
     main_screen.style.display = "none";
     isntructions.style.display = "flex";
 }
 
 function returnToMenu() {
+    loseScr.style.display = "none"
     main_screen.style.display = "block";
     leaders.style.display = "none"
     isntructions.style.display = "none";
 }
 
 function loadGame() {
+    loseScr.style.display = "none"
     main_screen.style.display = "none";
     leaders.style.display = "none"
     isntructions.style.display = "none";
     ground.style.display = "block"
     timer_element.innerText = "";
-
+    
     if (!game) {
         let index = Math.floor(Math.random() * primaryColors.length);
         if (index === 0) {
@@ -118,6 +145,7 @@ function generateTiles() {
         tile.onclick = function () {
             if (tile.getAttribute("color") === randomColor) {
                 round += 1;
+                score += 1;
                 nextRound(round);
             } else {
                 round = -1;
@@ -137,11 +165,23 @@ function nextRound(r) {
     }
 }
 
-
 function loseGame() {
-    ground.innerHTML = "";
+    ground.style.display = "none";
+    loseScr.style.display = "block";
+    leadScore.innerText = score;
+    leadName.focus();
     window.clearInterval(interval);
-    console.log("lose game");
 }
-// set timeout, check if mouse is hovering over correct square
-// if not hover then end game 
+
+function submitLead() {
+    if (leadName.value === "") {
+        alertmsg.style.display = "block";
+    } else {
+        leaderboard.push(new Object({
+            lead: leadName.value,
+            score: score,
+        }))
+        localStorage.setItem("lead", JSON.stringify(leaderboard));
+        returnToMenu();
+    }
+}
