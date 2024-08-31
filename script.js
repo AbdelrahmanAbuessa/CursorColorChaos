@@ -7,6 +7,10 @@ let colorBlock = document.getElementById("colorBlock");
 
 let tiles = document.getElementById("playground");
 
+let timer_element = document.getElementById("timer");
+
+let interval;
+
 main_screen.style.display = "block";
 isntructions.style.display = "none";
 leaders.style.display = "none"
@@ -14,10 +18,11 @@ ground.style.display = "none"
 
 let game = false;
 
-let loss = false;
+let round = 0;
 
-let colors = ["black", "white", "gray", "lightgray", "red", "aqua", "blue", "brown", "cyan", "darkblue", "darkgreen", "darkgrey", "darkorange", "darkred", "green", "lime", "lightblue", "lightgreen", "lightyellow", "magenta", "maroon", "navy", "orange", "pink", "purple", "red", "yellow"];
-let primaryColors = ["red", "blue", "black", "white", "green", "purple", "pink", "red", "yellow"];
+let timer = 4;
+
+let primaryColors = ["red", "blue", "black", "white", "green", "purple", "red", "yellow", "cyan", "darkblue", "lightblue", "lightgray", "gray", "darkgray", "darkred", "darkgreen", "lightgreen"];
 
 document.addEventListener("click", function (e) {
     let targetElement = e.target;
@@ -55,13 +60,14 @@ function loadGame() {
     leaders.style.display = "none"
     isntructions.style.display = "none";
     ground.style.display = "block"
+    timer_element.innerText = "";
 
     if (!game) {
-        let index = Math.floor(Math.random() * 10);
+        let index = Math.floor(Math.random() * primaryColors.length);
         if (index === 0) {
             index = 1;
         }
-        let start_color = primaryColors[index - 1];
+        let start_color = primaryColors[index];
         announceText.innerText = "Click to start the game";
         colorBlock.style.backgroundColor = start_color;
         colorBlock.onclick = function () {
@@ -72,23 +78,70 @@ function loadGame() {
 }
 
 function startGame() {
+    timer = 4;
+    timer_element.innerText = timer;
     colorBlock.onclick = "";
     announceText.innerText = "The Color is:";
-    if (!loss) {
-        for (let i = 0; i < 4; i++) {
-            let tile = document.createElement("div");
-            tile.className = "tile";
-            tile.id = i;
-            let randomColor = primaryColors[Math.floor(Math.random() * 9)];
-            tile.setAttribute("color", randomColor);
-            tile.style.backgroundColor = randomColor;
-            tiles.appendChild(tile);
-        }
+    if (round > -1) {
+        generateTiles();
+        interval = window.setInterval(function () {
+            timer -= 1;
+            timer_element.innerText = timer;
+            if (timer < 0) {
+                loseGame();
+            }
+        }, 1000)
     }
 }
 
-// loadd starter game
-// when click over square: set level & dificulty
-// update game, load squares, select random colors, apply them and squares and stuff
+function generateTiles() {
+    timer = 4;
+    timer_element.innerText = timer;
+    let probability = 0.000001;
+    let primaryNumber = Math.floor(Math.random() * primaryColors.length);
+    let randomColor = primaryColors[primaryNumber];
+    colorBlock.style.backgroundColor = randomColor;
+    for (let i = 0; i < 160; i++) {
+        let randomNumber = Math.floor(Math.random() * primaryColors.length);
+        if (randomNumber === primaryNumber) {
+            randomNumber = primaryNumber - 2;
+        }
+        let tile = document.createElement("div");
+        tile.className = "tile";
+        tile.id = i;
+        if (randomNumber < probability) {
+            tile.style.backgroundColor = randomColor;
+        } else {
+            tile.style.backgroundColor = primaryColors[randomNumber];
+        }
+        tile.setAttribute("color", tile.style.backgroundColor);
+        tile.onclick = function () {
+            if (tile.getAttribute("color") === randomColor) {
+                round += 1;
+                nextRound(round);
+            } else {
+                round = -1;
+                nextRound(round);
+            }
+        }
+        tiles.appendChild(tile);
+    }
+}
+
+function nextRound(r) {
+    if (r > -1) {
+        tiles.innerHTML = "";
+        generateTiles();
+    } else {
+        loseGame();
+    }
+}
+
+
+function loseGame() {
+    ground.innerHTML = "";
+    window.clearInterval(interval);
+    console.log("lose game");
+}
 // set timeout, check if mouse is hovering over correct square
 // if not hover then end game 
