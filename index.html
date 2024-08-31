@@ -9,13 +9,58 @@
     <body>
         <div class="content">
         </div>
-        <div class="main-screen">
+        <div class="main-screen" id="main">
             <div class="title">Cursor Color Chaos</div>
             <div class="subtitle">Browser Based Endless Pace Game</div>
             <div class="btns">
                 <div btn="" id="start">START GAME</div>
                 <div btn="" id="how">How to Play?</div>
                 <div btn="" id="lead">Leaderboard</div>
+            </div>
+        </div>
+
+        <div class="instructions" id="instructions">
+            <div class="instructions-title">How To Play?</div>
+            <div class="point">
+                A number of color blocks will be displayed on screen.
+            </div>
+            <div class="point">
+                You will be given a random color.
+            </div>
+            <div class="point">
+                You need to hover over a block with the corresponding color to not be eliminated.
+            </div>
+            <div class="point">
+                The game gets harder as you progress through the levels.
+            </div>
+            <div class="point">
+                Last player standing, WINS.
+            </div>
+            <div btn="" id="return">Back to Menu</div>
+        </div>
+        
+        <div class="leaderboard" id="leaderboard">
+            <div class="instructions-title">Leaderboard</div>
+            <div class="leadlist">
+                <div class="person">
+                    <div class="name" id="name">UserName</div>
+                    <div class="score" id="score">UserName</div>
+                </div>
+                <div class="person">
+                    <div class="name" id="name">UserName</div>
+                    <div class="score" id="score">UserName</div>
+                </div>
+                <div class="person">
+                    <div class="name" id="name">UserName</div>
+                    <div class="score" id="score">UserName</div>
+                </div>
+            </div>
+            <div btn="" id="return">Back to Menu</div>
+        </div>
+
+        <div class="ground" id="ground">
+            <div class="announce">
+                The Color is: <span id="colorBlock" class="colorBlock"></span>
             </div>
         </div>
 
