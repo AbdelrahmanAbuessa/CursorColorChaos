@@ -207,4 +207,5 @@ function submitLead() {
         localStorage.setItem("lead", JSON.stringify(leaderboard));
         returnToMenu();
     }
+    score = 0;
 }
