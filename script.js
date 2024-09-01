@@ -23,6 +23,7 @@ alertmsg.style.display = "none"
 
 let game = false;
 let round = 0;
+let squareNumber;
 let score = 0;
 let timer = 4;
 let primaryColors = ["red", "blue", "black", "white", "green", "purple", "red", "yellow", "cyan", "darkblue", "lightblue", "lightgray", "gray", "darkgray", "darkred", "darkgreen", "lightgreen"];
@@ -124,11 +125,33 @@ function startGame() {
 function generateTiles() {
     timer = 4;
     timer_element.innerText = timer;
-    let probability = 0.000001;
+    let probability;
     let primaryNumber = Math.floor(Math.random() * primaryColors.length);
     let randomColor = primaryColors[primaryNumber];
     colorBlock.style.backgroundColor = randomColor;
-    for (let i = 0; i < 160; i++) {
+    if (round <= 5) {
+        probability = 0.3 * primaryColors.length;
+        squareNumber = 10;
+    } else if (round > 5 && round <= 10) {
+        probability = 0.3 * primaryColors.length;
+        squareNumber = 15;
+    } else if (round > 10 && round <= 20) {
+        probability = 0.2 * primaryColors.length;
+        squareNumber = 30;
+    } else if (round > 20 && round <= 30) {
+        probability = 0.2 * primaryColors.length;
+        squareNumber = 50;
+    } else if (round > 30 && round <= 40) {
+        probability = 0.15 * primaryColors.length;
+        squareNumber = 75;
+    } else if (round > 40 && round <= 50) {
+        probability = 0.05 * primaryColors.length;
+        squareNumber = 110;
+    } else if (round > 50) {
+        probability = 0.0001 * primaryColors.length;
+        squareNumber = 160;
+    }
+    for (let i = 0; i < squareNumber; i++) {
         let randomNumber = Math.floor(Math.random() * primaryColors.length);
         if (randomNumber === primaryNumber) {
             randomNumber = primaryNumber - 2;
