@@ -3,6 +3,8 @@
 ### Access the live demo through the link below:
 https://abdelrahmanabuessa.github.io/CursorColorChaos/
 
+***Note: This project is experimental and isn't intended to be considered professional work.***
+
 WELCOME TO CURSOR COLOR CHAOS!
 A game where you can challenge the boundaries of human vision and focus, in being able to tell EXTREMELY SIMILAR colors apart.
 ![image](https://github.com/user-attachments/assets/a51226b3-04a4-4b49-af5d-dc9750bf9d70)
@@ -19,4 +21,3 @@ The objective of this game is to get the highest ever score possible
 ![image](https://github.com/user-attachments/assets/c41f3bd7-4b72-4d54-890e-40715e7aa8eb)
 
 So Simple, yet challenging, ARE YOU UP FOR THE CHALLENGE?
-linkhere
